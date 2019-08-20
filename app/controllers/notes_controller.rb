@@ -11,8 +11,9 @@ class NotesController < ApplicationController
     @note = Note.new
   end
   
-  # def edit
-  # end
+  def edit
+    @note = Note.find(params[:id])
+  end
 
   def create
     @note = Note.new(notes_params)
@@ -21,6 +22,16 @@ class NotesController < ApplicationController
       redirect_to notes_path
     else
       render :new
+    end
+  end
+
+  def update
+    @note = Note.update(params[:id])
+
+    if @note.update(note_params)
+      redirect_to notes_path
+    else
+      render :edit
     end
   end
 
