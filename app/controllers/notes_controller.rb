@@ -26,13 +26,18 @@ class NotesController < ApplicationController
   end
 
   def update
-    @note = Note.update(params[:id])
+    @note = Note.find(params[:id])
 
-    if @note.update(note_params)
-      redirect_to notes_path
+    if @note.update(notes_params)
+      redirect_to note_path(@note.id)
     else
       render :edit
     end
+  end
+
+  def destroy
+    Note.find(params[:id]).destroy
+    redirect_to notes_path
   end
 
   private
